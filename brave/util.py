@@ -3,6 +3,23 @@ from github import Github
 import re
 import datetime
 from . import config
+import time
+
+
+def rate_limit_for_value(g, val):
+    (avail, total) = g.rate_limiting
+    print('Rate limiting info - total:', total, 'avail: ', avail)
+
+    reset_time = datetime.datetime.fromtimestamp(g.rate_limiting_resettime)
+    delay_seconds = (reset_time - datetime.datetime.now()).total_seconds()
+
+    if avail < 50:
+        print('Less than 50 rate limited requests left, delaying for', delay_seconds, 'seconds...')
+        # Wait an extra 10 seconds to be safe
+        time.sleep(delay_seconds + 10)
+        print('Resumed.')
+
+    return val
 
 
 def sort_branch_count_pairs(branch_val):
@@ -22,12 +39,12 @@ def get_pull_requests(github_access_token, repo_stub):
     pulls = repo.get_pulls('closed')
 
     pull_refs_master = [config.milestone_ids_to_version[x.milestone.number] for x in pulls if
-                        x.base.ref == 'master' and
+                        rate_limit_for_value(g, x.base.ref) == 'master' and
                         x.milestone is not None and
                         x.milestone.number in config.milestone_ids_to_version.keys() and
                         bool(re.match(config.branch_regex, config.milestone_ids_to_version[x.milestone.number]))]
     pull_refs_uplift = [x.base.ref for x in pulls if
-                        bool(re.match(config.branch_regex, x.base.ref)) and
+                        rate_limit_for_value(g, bool(re.match(config.branch_regex, x.base.ref))) and
                         x.milestone is not None and
                         config.version_to_milestone_ids[x.base.ref] == x.milestone.number]
     print('master:', Counter(pull_refs_master).most_common(100).sort(key=sort_branch_count_pairs))
@@ -46,9 +63,9 @@ def recent_prs_with_no_milestones(github_access_token, repo_stub):
     past_date = today - datetime.timedelta(days=30)
 
     pulls = [x.html_url for x in pulls if
-             x.milestone is None and
-             x.merged_at is not None and
-             x.merged_at > past_date]
+             rate_limit_for_value(g, x.merged_at) is not None and
+             x.merged_at > past_date and
+             x.milestone is None]
     print('pulls: ', pulls)
     return pulls
 
@@ -63,12 +80,11 @@ def recent_issues_with_no_milestones(github_access_token, repo_stub):
     today = datetime.datetime.now()
     past_date = today - datetime.timedelta(days=30)
 
-    issues = [(x.html_url, x.labels)
-              for x in issues
-              if x.pull_request is None
-              and x.milestone is None
-              and x.closed_at is not None
-              and x.closed_at > past_date
-              and bool(config.closed_labels.intersection([y.name for y in x.labels]))]
+    issues = [x.html_url for x in issues if
+              rate_limit_for_value(g, x.closed_at) is not None and
+              x.closed_at > past_date and
+              x.pull_request is None and
+              x.milestone is None and
+              not bool(config.closed_labels.intersection([y.name for y in x.labels]))]
     print('issues: ', issues)
     return issues
