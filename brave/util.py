@@ -49,3 +49,23 @@ def recent_prs_with_no_milestones(g, repo_stub):
              x.merged_at > past_date]
     print('pulls: ', pulls)
     return pulls
+
+
+def recent_issues_with_no_milestones(g, repo_stub):
+    [org_name, repo_name] = repo_stub.split("/")
+    org = g.get_organization(org_name)
+    repo = org.get_repo(repo_name)
+    issues = repo.get_issues(state="closed")
+
+    today = datetime.datetime.now()
+    past_date = today - datetime.timedelta(days=30)
+
+    issues = [(x.html_url, x.labels)
+              for x in issues
+              if x.pull_request is None
+              and x.milestone is None
+              and x.closed_at is not None
+              and x.closed_at > past_date
+              and bool(config.closed_labels.intersection([y.name for y in x.labels]))]
+    print('issues: ', issues)
+    return issues
