@@ -65,7 +65,9 @@ def recent_prs_with_no_milestones(github_access_token, repo_stub):
     pulls = [x.html_url for x in pulls if
              rate_limit_for_value(g, x.merged_at) is not None and
              x.merged_at > past_date and
-             x.milestone is None]
+             x.milestone is None and
+             # Ignore PRs that were merged into other PRs
+             x.base.ref == 'master']
     print('pulls: ', pulls)
     return pulls
 
