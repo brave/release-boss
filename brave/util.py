@@ -47,9 +47,16 @@ def get_pull_requests(github_access_token, repo_stub):
                         rate_limit_for_value(g, bool(re.match(config.branch_regex, x.base.ref))) and
                         x.milestone is not None and
                         config.version_to_milestone_ids[x.base.ref] == x.milestone.number]
-    print('master:', Counter(pull_refs_master).most_common(100).sort(key=sort_branch_count_pairs))
-    print('uplifts: ', Counter(pull_refs_uplift).most_common(100).sort(key=sort_branch_count_pairs))
-    return (pull_refs_master, pull_refs_uplift)
+
+    master = Counter(pull_refs_master).most_common(100)
+    master.sort(key=sort_branch_count_pairs)
+
+    uplifts = Counter(pull_refs_uplift).most_common(100)
+    uplifts.sort(key=sort_branch_count_pairs)
+
+    print('uplifts: ', uplifts)
+    print('master:', master)
+    return (master, uplifts)
 
 
 def recent_prs_with_no_milestones(github_access_token, repo_stub):
