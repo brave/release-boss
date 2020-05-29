@@ -67,7 +67,8 @@ def recent_prs_with_no_milestones(github_access_token, repo_stub):
              x.merged_at > past_date and
              x.milestone is None and
              # Ignore PRs that were merged into other PRs
-             x.base.ref == 'master']
+             x.base.ref == 'master' and
+             x.title != 'Branch migration - master branch']
     print('pulls: ', pulls)
     return pulls
 

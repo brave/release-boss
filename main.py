@@ -17,7 +17,7 @@ def main():
     github_access_token = os.environ['GITHUB_ACCESS_TOKEN']
     slack_access_token = os.environ['SLACK_ACCESS_TOKEN']
 
-    # slack.notify(slack_access_token, '#test-bbondy', 'Test!')
+    # slack.notify(slack_access_token, '@bbondy', 'Test!')
 
     if args.action == 'pr-per-release':
         util.get_pull_requests(github_access_token, "brave/brave-core")
