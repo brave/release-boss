@@ -1,7 +1,6 @@
 import argparse
 import os
-import re
-from brave import config, util
+from brave import config, slack, util
 
 
 def main():
@@ -13,8 +12,12 @@ def main():
     args = parser.parse_args()
 
     assert "GITHUB_ACCESS_TOKEN" in os.environ, "Access token must be specified with GITHUB_ACCESS_TOKEN"
+    assert "SLACK_ACCESS_TOKEN" in os.environ, "Access token must be specified with SLACK_ACCESS_TOKEN"
 
     github_access_token = os.environ['GITHUB_ACCESS_TOKEN']
+    slack_access_token = os.environ['SLACK_ACCESS_TOKEN']
+
+    # slack.notify(slack_access_token, '#test-bbondy', 'Test!')
 
     if args.action == 'pr-per-release':
         util.get_pull_requests(github_access_token, "brave/brave-core")

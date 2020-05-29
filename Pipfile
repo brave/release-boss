@@ -9,6 +9,7 @@ verify_ssl = true
 pygithub = "*"
 matplotlib = "*"
 numpy = "*"
+slackclient = "*"
 
 [requires]
 python_version = "3.7"
