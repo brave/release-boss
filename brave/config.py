@@ -23,6 +23,6 @@ closed_labels = set([
     'stale',
 ])
 
-branch_regex = r'^1\.\d+\.x+$'
+branch_regex = r'^1\.[1-9]\d*\.x+$'
 
 milestone_ids_to_version = {v: k for k, v in version_to_milestone_ids.items()}
