@@ -14,8 +14,9 @@ def sort_branch_count_pairs(branch_val):
     return val
 
 
-def get_pull_requests(g, repo_stub):
+def get_pull_requests(github_access_token, repo_stub):
     [org_name, repo_name] = repo_stub.split("/")
+    g = Github(github_access_token)
     org = g.get_organization(org_name)
     repo = org.get_repo(repo_name)
     pulls = repo.get_pulls('closed')
@@ -34,8 +35,9 @@ def get_pull_requests(g, repo_stub):
     return (pull_refs_master, pull_refs_uplift)
 
 
-def recent_prs_with_no_milestones(g, repo_stub):
+def recent_prs_with_no_milestones(github_access_token, repo_stub):
     [org_name, repo_name] = repo_stub.split("/")
+    g = Github(github_access_token)
     org = g.get_organization(org_name)
     repo = org.get_repo(repo_name)
     pulls = repo.get_pulls('closed')
@@ -51,8 +53,9 @@ def recent_prs_with_no_milestones(g, repo_stub):
     return pulls
 
 
-def recent_issues_with_no_milestones(g, repo_stub):
+def recent_issues_with_no_milestones(github_access_token, repo_stub):
     [org_name, repo_name] = repo_stub.split("/")
+    g = Github(github_access_token)
     org = g.get_organization(org_name)
     repo = org.get_repo(repo_name)
     issues = repo.get_issues(state="closed")

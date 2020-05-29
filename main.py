@@ -1,10 +1,7 @@
 import argparse
-import datetime
 import os
 import re
 from brave import config, util
-from collections import Counter
-from github import Github
 
 
 def main():
@@ -16,15 +13,15 @@ def main():
     args = parser.parse_args()
 
     assert "GITHUB_ACCESS_TOKEN" in os.environ, "Access token must be specified with GITHUB_ACCESS_TOKEN"
-    access_token = os.environ['GITHUB_ACCESS_TOKEN']
-    g = Github(access_token)
+
+    github_access_token = os.environ['GITHUB_ACCESS_TOKEN']
 
     if args.action == 'pr-per-release':
-        util.get_pull_requests(g, "brave/brave-core")
+        util.get_pull_requests(github_access_token, "brave/brave-core")
     elif args.action == 'pr-milestone':
-        util.recent_prs_with_no_milestones(g, "brave/brave-core")
+        util.recent_prs_with_no_milestones(github_access_token, "brave/brave-core")
     elif args.action == 'issue-milestone':
-        util.recent_issues_with_no_milestones(g, "brave/brave-browser")
+        util.recent_issues_with_no_milestones(github_access_token, "brave/brave-browser")
     else:
         print('Not a valid command: ', args.action)
 
