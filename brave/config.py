@@ -15,7 +15,12 @@ closed_labels = set([
     'closed/invalid',
     'closed/not-actionable',
     'closed/fixed-by-component-update',
+    'closed/works-for-me',
+    'closed/no-milestone',
     'duplicate',
+    'wontfix',
+    'question',
+    'stale',
 ])
 
 branch_regex = r'^1\.\d+\.x+$'
