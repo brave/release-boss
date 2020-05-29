@@ -32,3 +32,20 @@ def get_pull_requests(g, repo_stub):
     print('master:', Counter(pull_refs_master).most_common(100).sort(key=sort_branch_count_pairs))
     print('uplifts: ', Counter(pull_refs_uplift).most_common(100).sort(key=sort_branch_count_pairs))
     return (pull_refs_master, pull_refs_uplift)
+
+
+def recent_prs_with_no_milestones(g, repo_stub):
+    [org_name, repo_name] = repo_stub.split("/")
+    org = g.get_organization(org_name)
+    repo = org.get_repo(repo_name)
+    pulls = repo.get_pulls('closed')
+
+    today = datetime.datetime.now()
+    past_date = today - datetime.timedelta(days=30)
+
+    pulls = [x.html_url for x in pulls if
+             x.milestone is None and
+             x.merged_at is not None and
+             x.merged_at > past_date]
+    print('pulls: ', pulls)
+    return pulls
