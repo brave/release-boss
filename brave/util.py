@@ -38,15 +38,15 @@ def get_pull_requests(github_access_token, repo_stub):
     repo = org.get_repo(repo_name)
     pulls = repo.get_pulls('closed')
 
-    pull_refs_master = [config.milestone_ids_to_version[x.milestone.number] for x in pulls if
+    pull_refs_master = [config.brave_core_milestone_ids_to_version[x.milestone.number] for x in pulls if
                         rate_limit_for_value(g, x.base.ref) == 'master' and
                         x.milestone is not None and
-                        x.milestone.number in config.milestone_ids_to_version.keys() and
-                        bool(re.match(config.branch_regex, config.milestone_ids_to_version[x.milestone.number]))]
+                        x.milestone.number in config.brave_core_milestone_ids_to_version.keys() and
+                        bool(re.match(config.branch_regex, config.brave_core_milestone_ids_to_version[x.milestone.number]))]
     pull_refs_uplift = [x.base.ref for x in pulls if
                         rate_limit_for_value(g, bool(re.match(config.branch_regex, x.base.ref))) and
                         x.milestone is not None and
-                        config.version_to_milestone_ids[x.base.ref] == x.milestone.number]
+                        config.version_to_brave_core_milestone_ids[x.base.ref] == x.milestone.number]
 
     master = Counter(pull_refs_master).most_common(100)
     master.sort(key=sort_branch_count_pairs)
@@ -103,7 +103,7 @@ def recent_issues_with_no_milestones(github_access_token, repo_stub):
 def fix_milestone_pr(g, pull, pr_repo_stub):
     match = parsing.get_closed_issue(pull.body, pr_repo_stub)
     if not match:
-        print('Match not found pr.number:', pull.number)#, match)
+        print('Match not found pr.number:', pull.number)
         return
 
     (closed_repo_stub, closed_number) = match

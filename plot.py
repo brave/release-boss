@@ -27,9 +27,9 @@ def plot_prs_per_release(versions, master, uplifts):
 
 
 def main():
-    version_to_milestone_ids = config.version_to_milestone_ids.copy()
-    del version_to_milestone_ids['1.6.x']
-    versions = list(version_to_milestone_ids.keys())
+    version_to_brave_core_milestone_ids = config.version_to_brave_core_milestone_ids.copy()
+    del version_to_brave_core_milestone_ids['1.6.x']
+    versions = list(version_to_brave_core_milestone_ids.keys())
 
     master = [('1.7.x', 158), ('1.3.x', 140), ('1.10.x', 139), ('1.1.x', 139),
               ('1.8.x', 121), ('1.2.x', 79), ('1.9.x', 77), ('1.5.x', 75), ('1.4.x', 66)]

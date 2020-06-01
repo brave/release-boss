@@ -1,4 +1,4 @@
-version_to_milestone_ids = {
+version_to_brave_core_milestone_ids = {
     '1.1.x': 34,
     '1.2.x': 39,
     '1.3.x': 41,
@@ -25,4 +25,4 @@ closed_labels = set([
 
 branch_regex = r'^1\.[1-9]\d*\.x+$'
 
-milestone_ids_to_version = {v: k for k, v in version_to_milestone_ids.items()}
+brave_core_milestone_ids_to_version = {v: k for k, v in version_to_brave_core_milestone_ids.items()}
