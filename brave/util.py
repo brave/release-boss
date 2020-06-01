@@ -2,13 +2,13 @@ from collections import Counter
 from github import Github
 import re
 import datetime
-from . import config
+from . import config, parsing
 import time
 
 
-def rate_limit_for_value(g, val):
+def rate_limit_for_value(g, val=None):
     (avail, total) = g.rate_limiting
-    print('Rate limiting info - total:', total, 'avail: ', avail)
+    # print('Rate limiting info - total:', total, 'avail: ', avail)
 
     reset_time = datetime.datetime.fromtimestamp(g.rate_limiting_resettime)
     delay_seconds = (reset_time - datetime.datetime.now()).total_seconds()
@@ -67,7 +67,7 @@ def recent_prs_with_no_milestones(github_access_token, repo_stub):
     pulls = repo.get_pulls('closed')
 
     today = datetime.datetime.now()
-    past_date = today - datetime.timedelta(days=30)
+    past_date = today - datetime.timedelta(days=120)
 
     pulls = [x.html_url for x in pulls if
              rate_limit_for_value(g, x.merged_at) is not None and
@@ -98,3 +98,55 @@ def recent_issues_with_no_milestones(github_access_token, repo_stub):
               not bool(config.closed_labels.intersection([y.name for y in x.labels]))]
     print('issues: ', issues)
     return issues
+
+
+def fix_milestone_pr(g, pull, pr_repo_stub):
+    match = parsing.get_closed_issue(pull.body, pr_repo_stub)
+    if not match:
+        print('Match not found pr.number:', pull.number)#, match)
+        return
+
+    (closed_repo_stub, closed_number) = match
+    if len(closed_repo_stub.split("/")) == 1:
+        print('There is a problem with this pull body: ', pull.body)
+        print('There is a problem with this pull number: ', pull.number)
+        return
+
+    if closed_repo_stub != 'brave/brave-browser':
+        print('Skipping because repo: ', closed_repo_stub, 'for PR number: ', pull.number)
+        return
+
+    [closed_org_name, closed_repo_name] = closed_repo_stub.split("/")
+    org = g.get_organization(closed_org_name)
+    # print('closed_number: ', closed_number)
+    # print('closed_org_name: ', closed_org_name)
+    # print('closed_repo_name: ', closed_repo_name)
+    repo = org.get_repo(closed_repo_name)
+    issue = repo.get_issue(closed_number)
+
+    if issue.milestone is not None:
+        return None
+
+    print('has no milestone: ', issue.html_url)
+    return issue.html_url
+
+
+def fix_milestone_prs(github_access_token, repo_stub):
+    [org_name, repo_name] = repo_stub.split("/")
+    g = Github(github_access_token)
+    org = g.get_organization(org_name)
+    repo = org.get_repo(repo_name)
+    pulls = repo.get_pulls('closed')
+
+    today = datetime.datetime.now()
+    past_date = today - datetime.timedelta(days=120)
+    pull_refs_master = [x for x in pulls if
+                        rate_limit_for_value(g, x.closed_at) is not None and
+                        x.closed_at > past_date and
+                        rate_limit_for_value(g, x.base.ref) == 'master' and
+                        x.milestone is not None]
+    for pull in pull_refs_master:
+        rate_limit_for_value(g)
+        issue_url = fix_milestone_pr(g, pull, repo_stub)
+        if issue_url is not None:
+            print(issue_url)

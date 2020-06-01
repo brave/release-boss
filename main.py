@@ -8,7 +8,9 @@ def main():
     parser.add_argument('--action', help='''One of:
         pr-per-release: Output data for the number of PRs per release
         pr-milestone: Output data for the PRs that are missing milestones
-        issue-milestone: Output data for the issues that are missing milestones''')
+        issue-milestone: Output data for the issues that are missing milestones
+        fix-milestone-prs: Output data for issues that have no milestone, but associated PR does
+        ''')
     args = parser.parse_args()
 
     assert "GITHUB_ACCESS_TOKEN" in os.environ, "Access token must be specified with GITHUB_ACCESS_TOKEN"
@@ -25,6 +27,8 @@ def main():
         util.recent_prs_with_no_milestones(github_access_token, "brave/brave-core")
     elif args.action == 'issue-milestone':
         util.recent_issues_with_no_milestones(github_access_token, "brave/brave-browser")
+    elif args.action == 'fix-milestone-prs':
+        util.fix_milestone_prs(github_access_token, "brave/brave-core")
     else:
         print('Not a valid command: ', args.action)
 
