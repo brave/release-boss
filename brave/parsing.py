@@ -2,9 +2,11 @@ import re
 from urllib.parse import urlparse
 
 
+close_regex = re.compile(r'\b(close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved)\b(.+)\b', re.IGNORECASE)
+num_regex = re.compile(r'\d+')
+
 def get_closed_issue(body, default_repo_stub):
-    p = re.compile('\\b(close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved)\\b(.+)\\b', re.IGNORECASE)
-    m = p.search(body)
+    m = close_regex.search(body)
     if not m:
         print('no match')
         return None
@@ -34,4 +36,5 @@ def get_closed_issue(body, default_repo_stub):
     if not bool(closed_number):
         # print('closed number is not valid:', body)
         return None
-    return (closed_repo_stub, int(closed_number.split()[0]))
+
+    return (closed_repo_stub, int(re.search(r'\d+', closed_number).group()))
