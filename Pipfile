@@ -10,6 +10,7 @@ pygithub = "*"
 matplotlib = "*"
 numpy = "*"
 slackclient = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.7"

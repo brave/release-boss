@@ -4,6 +4,10 @@
 
 `pipenv install`
 
+## Running tests
+
+`pipenv run pytest`
+
 ## Commands
 
 ### Linting
