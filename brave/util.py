@@ -2,7 +2,7 @@ from collections import Counter
 from github import Github
 import re
 import datetime
-from . import config, parsing
+from . import config, messages, parsing, slack
 import time
 
 
@@ -168,14 +168,21 @@ def fix_milestone_prs(github_access_token, repo_stub):
                   '')
 
 
-def fix_missing_qa_flags(github_access_token, repo_stub):
+def fix_missing_qa_flags(slack_access_token, github_access_token, repo_stub):
     [org_name, repo_name] = repo_stub.split("/")
     g = Github(github_access_token)
     org = g.get_organization(org_name)
     repo = org.get_repo(repo_name)
     milestone = repo.get_milestone(config.version_to_brave_browser_milestone_ids['1.10.x'])
     issues = repo.get_issues(state="closed", milestone=milestone)
-    urls = [x.html_url for x in issues if
+    items_to_notify = [(x.html_url, x.closed_by.login, x.closed_by.name) for x in issues if
             x.pull_request is None and
             item_has_no_label_intersection(x, config.qa_labels)]
-    print('urls without QA flags', urls)
+    if bool(slack_access_token):
+        for i in items_to_notify:
+            (html_url, closed_by_login, closed_by_name) = i
+            slack_id_to_notify = config.github_slack_map[closed_by_login]
+            if bool(slack_id_to_notify):
+                slack.notify_user(slack_access_token, slack_id_to_notify,
+                        messages.missing_qa_flags(closed_by_login, closed_by_name, html_url))
+    print('urls without QA flags', items_to_notify)
