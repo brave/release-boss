@@ -11,6 +11,19 @@ version_to_brave_core_milestone_ids = {
     '1.10.x': 66,
 }
 
+version_to_brave_browser_milestone_ids = {
+    '1.1.x': 50,
+    '1.2.x': 57,
+    '1.3.x': 62,
+    '1.4.x': 65,
+    '1.5.x': 72,
+    '1.6.x': 0,  # Was never released, merged to 1.7.x
+    '1.7.x': 84,
+    '1.8.x': 92,
+    '1.9.x': 98,
+    '1.10.x': 104,
+}
+
 closed_labels = set([
     'closed/invalid',
     'closed/not-actionable',
@@ -26,3 +39,4 @@ closed_labels = set([
 branch_regex = r'^1\.[1-9]\d*\.x+$'
 
 brave_core_milestone_ids_to_version = {v: k for k, v in version_to_brave_core_milestone_ids.items()}
+brave_browser_milestone_ids_to_version = {v: k for k, v in version_to_brave_browser_milestone_ids.items()}
