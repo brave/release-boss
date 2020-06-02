@@ -7,4 +7,3 @@ If you specify `QA/Yes`, then please also specify a test plan.
 
 Thank you!
     ''' % (closed_by_login, closed_by_name, html_url)).strip()
-

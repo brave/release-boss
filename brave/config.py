@@ -85,7 +85,7 @@ github_slack_map = {
     'tomlowenthal': '@yan',
     'tmancey': '@tmancey',
     'yrliou': '@yrliou',
-    'zenparsing':'@ksmith'
+    'zenparsing': '@ksmith',
 }
 
 
