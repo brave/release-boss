@@ -22,6 +22,10 @@ def rate_limit_for_value(g, val=None):
     return val
 
 
+def item_has_no_label_intersection(item, labels):
+    return not bool(labels.intersection([y.name for y in item.labels]))
+
+
 def sort_branch_count_pairs(branch_val):
     (branch, val) = branch_val
     if branch == 'master':
@@ -95,7 +99,7 @@ def recent_issues_with_no_milestones(github_access_token, repo_stub):
               x.closed_at > past_date and
               x.pull_request is None and
               x.milestone is None and
-              not bool(config.closed_labels.intersection([y.name for y in x.labels]))]
+              item_has_no_label_intersection(x, config.closed_labels)]
     print('issues: ', issues)
     return issues
 
@@ -157,4 +161,21 @@ def fix_milestone_prs(github_access_token, repo_stub):
         rate_limit_for_value(g)
         issue_url = fix_milestone_pr(g, pull, repo_stub)
         if issue_url is not None:
-            print(issue_url, pull.milestone.number, config.brave_core_milestone_ids_to_version[pull.milestone.number] if pull.milestone.number in config.brave_core_milestone_ids_to_version else '')
+            print(issue_url,
+                  pull.milestone.number,
+                  config.brave_core_milestone_ids_to_version[pull.milestone.number] if
+                  pull.milestone.number in config.brave_core_milestone_ids_to_version else
+                  '')
+
+
+def fix_missing_qa_flags(github_access_token, repo_stub):
+    [org_name, repo_name] = repo_stub.split("/")
+    g = Github(github_access_token)
+    org = g.get_organization(org_name)
+    repo = org.get_repo(repo_name)
+    milestone = repo.get_milestone(config.version_to_brave_browser_milestone_ids['1.10.x'])
+    issues = repo.get_issues(state="closed", milestone=milestone)
+    urls = [x.html_url for x in issues if
+            x.pull_request is None and
+            item_has_no_label_intersection(x, config.qa_labels)]
+    print('urls without QA flags', urls)

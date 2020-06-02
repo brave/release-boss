@@ -5,6 +5,7 @@ from urllib.parse import urlparse
 close_regex = re.compile(r'\b(close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved)\b(.+)\b', re.IGNORECASE)
 num_regex = re.compile(r'\d+')
 
+
 def get_closed_issue(body, default_repo_stub):
     m = close_regex.search(body)
     if not m:

@@ -33,7 +33,13 @@ closed_labels = set([
     'duplicate',
     'wontfix',
     'question',
+    'support',
     'stale',
+])
+
+qa_labels = set([
+    'QA/Yes',
+    'QA/No',
 ])
 
 branch_regex = r'^1\.[1-9]\d*\.x+$'

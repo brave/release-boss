@@ -10,6 +10,7 @@ def main():
         pr-milestone: Output data for the PRs that are missing milestones
         issue-milestone: Output data for the issues that are missing milestones
         fix-milestone-prs: Output data for issues that have no milestone, but associated PR does
+        fix-missing-qa-flags: Outputs data for issues that are missing QA flags
         ''')
     args = parser.parse_args()
 
@@ -29,6 +30,8 @@ def main():
         util.recent_issues_with_no_milestones(github_access_token, "brave/brave-browser")
     elif args.action == 'fix-milestone-prs':
         util.fix_milestone_prs(github_access_token, "brave/brave-core")
+    elif args.action == 'fix-missing-qa-flags':
+        util.fix_missing_qa_flags(github_access_token, "brave/brave-browser")
     else:
         print('Not a valid command: ', args.action)
 
