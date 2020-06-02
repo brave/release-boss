@@ -42,6 +42,53 @@ qa_labels = set([
     'QA/No',
 ])
 
+github_slack_map = {
+    'alexandersjosten': '@asjosten',
+    'AlexeyBarabash': '@alexey',
+    'AndriusA': '@Andrius',
+    'antonok-edm': '@alazarev',
+    'bbondy': '@bbondy',
+    'brave-builds': '#build-bot',
+    'bridiver': '@bjohnson',
+    'Brandon-T': '@bthomas',
+    'bsclifton': '@clifton',
+    'cezaraugusto': '@clifton',
+    'darkdh': '@anthony',
+    'deeppandya': '@dpandya',
+    'diracdeltas': '@yan',
+    'emerick': '@erogul',
+    'fmarier': '@francois',
+    'gdregalo': '@nejczdovc',
+    'Genysys': '@sdare',
+    'gpestana': '@gpestana',
+    'iccub': '@mbuczek',
+    'iefremov': '@iefremov',
+    'jamesmudgett': '@james',
+    'jumde': '@pranjal',
+    'keur': '@keur',
+    'kjozwiak': '@kamil',
+    'kylehickinson': '@khickinson',
+    'LaurenWags': '@lauren',
+    'linhkikuchi': '@linhn',
+    'mbacchi': '@mbacchi',
+    'mihaiplesa': '@mplesa',
+    'mkarolin': '@mkarolinskiy',
+    'moritzhaller': '@mhaller',
+    'NejcZdovc': '@nejczdovc',
+    'petemill': '@petemill',
+    'pilgrim-brave': '@mpilgrim',
+    'ryanml': '@rlanese',
+    'samartnik': '@artem',
+    'SergeyZhukovsky': '@serg',
+    'simonhong': '@shong',
+    'srirambv': '@sriram',
+    'tomlowenthal': '@yan',
+    'tmancey': '@tmancey',
+    'yrliou': '@yrliou',
+    'zenparsing':'@ksmith'
+}
+
+
 branch_regex = r'^1\.[1-9]\d*\.x+$'
 
 brave_core_milestone_ids_to_version = {v: k for k, v in version_to_brave_core_milestone_ids.items()}
