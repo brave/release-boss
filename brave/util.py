@@ -103,7 +103,7 @@ def recent_issues_with_no_milestones(github_access_token, repo_stub):
 def fix_milestone_pr(g, pull, pr_repo_stub):
     match = parsing.get_closed_issue(pull.body, pr_repo_stub)
     if not match:
-        print('Match not found pr.number:', pull.number)
+        # print('Match not found pr.number:', pull.number)
         return
 
     (closed_repo_stub, closed_number) = match
@@ -113,7 +113,7 @@ def fix_milestone_pr(g, pull, pr_repo_stub):
         return
 
     if closed_repo_stub != 'brave/brave-browser':
-        print('Skipping because repo: ', closed_repo_stub, 'for PR number: ', pull.number)
+        # print('Skipping because repo: ', closed_repo_stub, 'for PR number: ', pull.number)
         return
 
     [closed_org_name, closed_repo_name] = closed_repo_stub.split("/")
@@ -124,10 +124,18 @@ def fix_milestone_pr(g, pull, pr_repo_stub):
     repo = org.get_repo(closed_repo_name)
     issue = repo.get_issue(closed_number)
 
+    # If the issue already has a milestone, don't override it
     if issue.milestone is not None:
         return None
 
-    print('has no milestone: ', issue.html_url)
+    # Make sure the issue is closed
+    if issue.closed_at is None:
+        return None
+
+    # If the issue has an invalid-like label, then don't consider it
+    if bool(config.closed_labels.intersection([y.name for y in issue.labels])):
+        return None
+
     return issue.html_url
 
 
@@ -139,14 +147,14 @@ def fix_milestone_prs(github_access_token, repo_stub):
     pulls = repo.get_pulls('closed')
 
     today = datetime.datetime.now()
-    past_date = today - datetime.timedelta(days=120)
+    # past_date = today - datetime.timedelta(days=160)
     pull_refs_master = [x for x in pulls if
                         rate_limit_for_value(g, x.closed_at) is not None and
-                        x.closed_at > past_date and
+                        # x.closed_at > past_date and
                         rate_limit_for_value(g, x.base.ref) == 'master' and
                         x.milestone is not None]
     for pull in pull_refs_master:
         rate_limit_for_value(g)
         issue_url = fix_milestone_pr(g, pull, repo_stub)
         if issue_url is not None:
-            print(issue_url)
+            print(issue_url, pull.milestone.number, config.brave_core_milestone_ids_to_version[pull.milestone.number] if pull.milestone.number in config.brave_core_milestone_ids_to_version else '')

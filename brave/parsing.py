@@ -8,7 +8,7 @@ num_regex = re.compile(r'\d+')
 def get_closed_issue(body, default_repo_stub):
     m = close_regex.search(body)
     if not m:
-        print('no match')
+        # print('no match for GitHub close syntax')
         return None
     # print('m.group2: \"', m.group(2) + '\"')
     closed_issue = m.group(2).strip().lstrip(':').lstrip()
@@ -37,4 +37,9 @@ def get_closed_issue(body, default_repo_stub):
         # print('closed number is not valid:', body)
         return None
 
-    return (closed_repo_stub, int(re.search(r'\d+', closed_number).group()))
+    closed_number_match = re.search(r'\d+', closed_number)
+    if not closed_number_match:
+        # print('Could not parse closed number: ', closed_number, 'for body:', body)
+        return None
+
+    return (closed_repo_stub, int(closed_number_match.group()))
