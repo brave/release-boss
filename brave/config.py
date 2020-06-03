@@ -9,6 +9,7 @@ version_to_brave_core_milestone_ids = {
     '1.8.x': 58,
     '1.9.x': 63,
     '1.10.x': 66,
+    '1.11.x': 72,
 }
 
 version_to_brave_browser_milestone_ids = {
@@ -22,6 +23,7 @@ version_to_brave_browser_milestone_ids = {
     '1.8.x': 92,
     '1.9.x': 98,
     '1.10.x': 104,
+    '1.11.x': 112,
 }
 
 closed_labels = set([
