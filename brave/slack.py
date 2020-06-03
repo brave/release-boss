@@ -11,7 +11,7 @@ def notify_internal(api_key, channel, message):
         return True
     except SlackApiError as e:
         # You will get a SlackApiError if "ok" is False
-        print(f"Got an error: {e.response['error']}")
+        print(f"Got an error: {e.response['error']} for channel {channel} and message {message}")
         return e.response["ok"] is False
 
 
