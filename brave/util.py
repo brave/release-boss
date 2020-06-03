@@ -27,11 +27,11 @@ def item_has_no_label_intersection(item, labels):
 
 
 def get_github_repo(github_access_token, repo_stub):
-    [org_name, repo_name] = repo_stub.split("/")
+    [org_name, repo_name] = repo_stub.split('/')
     g = Github(github_access_token)
     org = g.get_organization(org_name)
     repo = org.get_repo(repo_name)
-    return repo
+    return (g, repo)
 
 
 def sort_branch_count_pairs(branch_val):
@@ -44,7 +44,7 @@ def sort_branch_count_pairs(branch_val):
 
 
 def get_pull_requests(github_access_token, repo_stub):
-    repo = get_github_repo(github_access_token, repo_stub)
+    (g, repo) = get_github_repo(github_access_token, repo_stub)
     pulls = repo.get_pulls('closed')
 
     pull_refs_master = [config.brave_core_milestone_ids_to_version[x.milestone.number] for x in pulls if
@@ -69,12 +69,12 @@ def get_pull_requests(github_access_token, repo_stub):
 
 
 def recent_prs_with_no_milestones(github_access_token, repo_stub):
-    repo = get_github_repo(github_access_token, repo_stub)
-    pulls = repo.get_pulls('closed')
+    (g, repo) = get_github_repo(github_access_token, repo_stub)
 
     today = datetime.datetime.now()
     past_date = today - datetime.timedelta(days=120)
 
+    pulls = repo.get_pulls('closed')
     pulls = [x.html_url for x in pulls if
              rate_limit_for_value(g, x.merged_at) is not None and
              x.merged_at > past_date and
@@ -87,12 +87,12 @@ def recent_prs_with_no_milestones(github_access_token, repo_stub):
 
 
 def recent_issues_with_no_milestones(github_access_token, repo_stub):
-    repo = get_github_repo(github_access_token, repo_stub)
-    issues = repo.get_issues(state="closed")
+    (g, repo) = get_github_repo(github_access_token, repo_stub)
 
     today = datetime.datetime.now()
     past_date = today - datetime.timedelta(days=30)
 
+    issues = repo.get_issues(state='closed')
     issues = [x.html_url for x in issues if
               rate_limit_for_value(g, x.closed_at) is not None and
               x.closed_at > past_date and
@@ -110,7 +110,7 @@ def fix_milestone_pr(g, pull, pr_repo_stub):
         return
 
     (closed_repo_stub, closed_number) = match
-    if len(closed_repo_stub.split("/")) == 1:
+    if len(closed_repo_stub.split('/')) == 1:
         print('There is a problem with this pull body: ', pull.body)
         print('There is a problem with this pull number: ', pull.number)
         return
@@ -119,7 +119,7 @@ def fix_milestone_pr(g, pull, pr_repo_stub):
         # print('Skipping because repo: ', closed_repo_stub, 'for PR number: ', pull.number)
         return
 
-    [closed_org_name, closed_repo_name] = closed_repo_stub.split("/")
+    [closed_org_name, closed_repo_name] = closed_repo_stub.split('/')
     org = g.get_organization(closed_org_name)
     # print('closed_number: ', closed_number)
     # print('closed_org_name: ', closed_org_name)
@@ -143,7 +143,7 @@ def fix_milestone_pr(g, pull, pr_repo_stub):
 
 
 def fix_milestone_prs(github_access_token, repo_stub):
-    repo = get_github_repo(github_access_token, repo_stub)
+    (g, repo) = get_github_repo(github_access_token, repo_stub)
     pulls = repo.get_pulls('closed')
 
     today = datetime.datetime.now()
@@ -165,9 +165,9 @@ def fix_milestone_prs(github_access_token, repo_stub):
 
 
 def fix_missing_qa_flags(slack_access_token, github_access_token, repo_stub):
-    repo = get_github_repo(github_access_token, repo_stub)
+    (g, repo) = get_github_repo(github_access_token, repo_stub)
     milestone = repo.get_milestone(config.version_to_brave_browser_milestone_ids['1.10.x'])
-    issues = repo.get_issues(state="closed", milestone=milestone)
+    issues = repo.get_issues(state='closed', milestone=milestone)
     items_to_notify = [(x.html_url, x.closed_by.login, x.closed_by.name) for x in issues if
                        x.pull_request is None and
                        item_has_no_label_intersection(x, config.qa_labels)]
@@ -182,9 +182,9 @@ def fix_missing_qa_flags(slack_access_token, github_access_token, repo_stub):
 
 
 def fix_missing_release_note_flags(slack_access_token, github_access_token, repo_stub):
-    repo = get_github_repo(github_access_token, repo_stub)
+    (g, repo) = get_github_repo(github_access_token, repo_stub)
     milestone = repo.get_milestone(config.version_to_brave_browser_milestone_ids['1.10.x'])
-    issues = repo.get_issues(state="closed", milestone=milestone)
+    issues = repo.get_issues(state='closed', milestone=milestone)
     items_to_notify = [(x.html_url, x.closed_by.login, x.closed_by.name) for x in issues if
                        x.pull_request is None and
                        item_has_no_label_intersection(x, config.release_note_labels)]
