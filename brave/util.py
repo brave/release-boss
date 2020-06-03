@@ -179,3 +179,20 @@ def fix_missing_qa_flags(slack_access_token, github_access_token, repo_stub):
                 slack.notify_user(slack_access_token, slack_id_to_notify,
                                   messages.missing_qa_flags(closed_by_login, closed_by_name, html_url))
     print('urls without QA flags', items_to_notify)
+
+
+def fix_missing_release_note_flags(slack_access_token, github_access_token, repo_stub):
+    repo = get_github_repo(github_access_token, repo_stub)
+    milestone = repo.get_milestone(config.version_to_brave_browser_milestone_ids['1.10.x'])
+    issues = repo.get_issues(state="closed", milestone=milestone)
+    items_to_notify = [(x.html_url, x.closed_by.login, x.closed_by.name) for x in issues if
+                       x.pull_request is None and
+                       item_has_no_label_intersection(x, config.release_note_labels)]
+    if bool(slack_access_token):
+        for i in items_to_notify:
+            (html_url, closed_by_login, closed_by_name) = i
+            slack_id_to_notify = config.github_slack_map[closed_by_login]
+            if bool(slack_id_to_notify):
+                slack.notify_user(slack_access_token, slack_id_to_notify,
+                                  messages.missing_release_note_flags(closed_by_login, closed_by_name, html_url))
+    print('urls without release note flags', items_to_notify)

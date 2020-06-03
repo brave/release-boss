@@ -42,6 +42,11 @@ qa_labels = set([
     'QA/No',
 ])
 
+release_note_labels = set([
+    'release-notes/include',
+    'release-notes/exclude',
+])
+
 github_slack_map = {
     'alexandersjosten': '@asjosten',
     'AlexeyBarabash': '@alexey',
