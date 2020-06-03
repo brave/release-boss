@@ -16,5 +16,7 @@ def notify_internal(api_key, channel, message):
 
 
 def notify_user(api_key, username, message):
+    # For testing...
+    # notify_internal(api_key, '@bbondy', '[For %s] %s' % (username, message))
     notify_internal(api_key, '#release-boss-audit-log', '[For %s] %s' % (username, message))
     notify_internal(api_key, username, message)
