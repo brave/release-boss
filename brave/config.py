@@ -82,6 +82,7 @@ github_slack_map = {
     'mkarolin': '@mkarolinskiy',
     'moritzhaller': '@mhaller',
     'NejcZdovc': '@nejczdovc',
+    'pes10k': '@pes',
     'petemill': '@petemill',
     'pilgrim-brave': '@mpilgrim',
     'ryanml': '@rlanese',
