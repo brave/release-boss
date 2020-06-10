@@ -20,7 +20,7 @@ def missing_release_note_flags(closed_by_login, closed_by_name, html_url):
 Github user %s closed issue %s without the needed release note flags.
 
 Please specify either `release-notes/include` or `release-notes/exclude`.
-If you specify `release-notes/include`, then please ensure the title of the issue is appropriate for release notes.
+For more information see https://github.com/brave/brave-browser/wiki/Release-notes
 
 Thank you!
     ''' % (format_name(closed_by_login, closed_by_name), html_url)).strip()
