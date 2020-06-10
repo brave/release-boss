@@ -11,7 +11,7 @@ def main():
         issue-milestone: Output data for the issues that are missing milestones
         fix-milestone-prs: Output data for issues that have no milestone, but associated PR does
         fix-missing-qa-flags: Outputs data for issues that are missing QA flags
-        fix-release-note-flags: Outputs data for issues that are missing release note flags''')
+        fix-missing-release-note-flags: Outputs data for issues that are missing release note flags''')
     args = parser.parse_args()
 
     assert "GITHUB_ACCESS_TOKEN" in os.environ, "Access token must be specified with GITHUB_ACCESS_TOKEN"
