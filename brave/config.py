@@ -99,3 +99,4 @@ branch_regex = r'^1\.[1-9]\d*\.x+$'
 
 brave_core_milestone_ids_to_version = {v: k for k, v in version_to_brave_core_milestone_ids.items()}
 brave_browser_milestone_ids_to_version = {v: k for k, v in version_to_brave_browser_milestone_ids.items()}
+slack_github_map = {v: k for k, v in github_slack_map.items()}
