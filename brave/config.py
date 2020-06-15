@@ -65,6 +65,7 @@ github_slack_map = {
     'diracdeltas': 'U0B9C844X',
     'emerick': 'U9E5WAX34',
     'fmarier': 'UFAJB5HB8',
+    'Fanboynz': 'UK7MJJX44',
     'gdregalo': 'U3MLL9K8C',
     'Genysys': 'ULC9D16TH',
     'gpestana': 'UK1C3AZMJ',
