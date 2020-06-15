@@ -25,7 +25,7 @@ def main():
     if args.action == 'pr-per-release':
         util.get_pull_requests(github_access_token, "brave/brave-core")
     elif args.action == 'pr-milestone':
-        util.recent_prs_with_no_milestones(github_access_token, "brave/brave-core")
+        util.recent_prs_with_no_milestones(slack_access_token, github_access_token, "brave/brave-core")
     elif args.action == 'issue-milestone':
         util.recent_issues_with_no_milestones(github_access_token, "brave/brave-browser")
     elif args.action == 'fix-milestone-prs':

@@ -68,21 +68,28 @@ def get_pull_requests(github_access_token, repo_stub):
     return (master, uplifts)
 
 
-def recent_prs_with_no_milestones(github_access_token, repo_stub):
+def recent_prs_with_no_milestones(slack_access_token, github_access_token, repo_stub):
     (g, repo) = get_github_repo(github_access_token, repo_stub)
 
     today = datetime.datetime.now()
     past_date = today - datetime.timedelta(days=120)
 
     pulls = repo.get_pulls('closed')
-    pulls = [x.html_url for x in pulls if
-             rate_limit_for_value(g, x.merged_at) is not None and
-             x.merged_at > past_date and
-             x.milestone is None and
-             # Ignore PRs that were merged into other PRs
-             x.base.ref == 'master' and
-             x.title != 'Branch migration - master branch']
-    print('pulls: ', pulls)
+    items_to_notify = [(x.html_url, x.user.login, x.user.name) for x in pulls if
+                       rate_limit_for_value(g, x.merged_at) is not None and
+                       x.merged_at > past_date and
+                       x.milestone is None and
+                       # Ignore PRs that were merged into other PRs
+                       x.base.ref == 'master' and
+                       x.title != 'Branch migration - master branch']
+    print('pulls: ', items_to_notify)
+    if bool(slack_access_token):
+        for i in items_to_notify:
+            (html_url, closed_by_login, closed_by_name) = i
+            slack_id_to_notify = config.github_slack_map[closed_by_login]
+            if bool(slack_id_to_notify):
+                slack.notify_user(slack_access_token, slack_id_to_notify,
+                                  messages.missing_pr_milestone(closed_by_login, closed_by_name, html_url))
     return pulls
 
 
@@ -166,11 +173,12 @@ def fix_milestone_prs(github_access_token, repo_stub):
 
 def fix_missing_qa_flags(slack_access_token, github_access_token, repo_stub):
     (g, repo) = get_github_repo(github_access_token, repo_stub)
-    milestone = repo.get_milestone(config.version_to_brave_browser_milestone_ids['1.10.x'])
+    milestone = repo.get_milestone(config.version_to_brave_browser_milestone_ids['1.12.x'])
     issues = repo.get_issues(state='closed', milestone=milestone)
     items_to_notify = [(x.html_url, x.closed_by.login, x.closed_by.name) for x in issues if
                        x.pull_request is None and
                        item_has_no_label_intersection(x, config.qa_labels)]
+    print('urls without QA flags', items_to_notify)
     if bool(slack_access_token):
         for i in items_to_notify:
             (html_url, closed_by_login, closed_by_name) = i
@@ -178,16 +186,16 @@ def fix_missing_qa_flags(slack_access_token, github_access_token, repo_stub):
             if bool(slack_id_to_notify):
                 slack.notify_user(slack_access_token, slack_id_to_notify,
                                   messages.missing_qa_flags(closed_by_login, closed_by_name, html_url))
-    print('urls without QA flags', items_to_notify)
 
 
 def fix_missing_release_note_flags(slack_access_token, github_access_token, repo_stub):
     (g, repo) = get_github_repo(github_access_token, repo_stub)
-    milestone = repo.get_milestone(config.version_to_brave_browser_milestone_ids['1.10.x'])
+    milestone = repo.get_milestone(config.version_to_brave_browser_milestone_ids['1.12.x'])
     issues = repo.get_issues(state='closed', milestone=milestone)
     items_to_notify = [(x.html_url, x.closed_by.login, x.closed_by.name) for x in issues if
                        x.pull_request is None and
                        item_has_no_label_intersection(x, config.release_note_labels)]
+    print('urls without release note flags', items_to_notify)
     if bool(slack_access_token):
         for i in items_to_notify:
             (html_url, closed_by_login, closed_by_name) = i
@@ -195,4 +203,3 @@ def fix_missing_release_note_flags(slack_access_token, github_access_token, repo
             if bool(slack_id_to_notify):
                 slack.notify_user(slack_access_token, slack_id_to_notify,
                                   messages.missing_release_note_flags(closed_by_login, closed_by_name, html_url))
-    print('urls without release note flags', items_to_notify)

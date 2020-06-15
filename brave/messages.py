@@ -24,3 +24,14 @@ For more information see https://github.com/brave/brave-browser/wiki/Release-not
 
 Thank you!
     ''' % (format_name(closed_by_login, closed_by_name), html_url)).strip()
+
+
+def missing_pr_milestone(closed_by_login, closed_by_name, html_url):
+    return (r'''
+Github user %s closed pull request %s without specifying a milestone.
+
+Please update the milestone to match the version it landed in.
+For more information see https://github.com/brave/brave-browser/wiki/Pull-requests-with-missing-milestones
+
+Thank you!
+    ''' % (format_name(closed_by_login, closed_by_name), html_url)).strip()
