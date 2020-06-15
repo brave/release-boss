@@ -86,28 +86,35 @@ def recent_prs_with_no_milestones(slack_access_token, github_access_token, repo_
     if bool(slack_access_token):
         for i in items_to_notify:
             (html_url, closed_by_login, closed_by_name) = i
-            slack_id_to_notify = config.github_slack_map[closed_by_login]
+            slack_id_to_notify = 'U04PX1BUA' if closed_by_login not in config.github_slack_map else config.github_slack_map[closed_by_login]
             if bool(slack_id_to_notify):
                 slack.notify_user(slack_access_token, slack_id_to_notify,
                                   messages.missing_pr_milestone(closed_by_login, closed_by_name, html_url))
-    return pulls
+    return items_to_notify
 
 
-def recent_issues_with_no_milestones(github_access_token, repo_stub):
+def recent_issues_with_no_milestones(slack_access_token, github_access_token, repo_stub):
     (g, repo) = get_github_repo(github_access_token, repo_stub)
 
     today = datetime.datetime.now()
     past_date = today - datetime.timedelta(days=30)
 
     issues = repo.get_issues(state='closed')
-    issues = [x.html_url for x in issues if
-              rate_limit_for_value(g, x.closed_at) is not None and
-              x.closed_at > past_date and
-              x.pull_request is None and
-              x.milestone is None and
-              item_has_no_label_intersection(x, config.closed_labels)]
-    print('issues: ', issues)
-    return issues
+    items_to_notify = [(x.html_url, x.closed_by.login, x.closed_by.name) for x in issues if
+                       rate_limit_for_value(g, x.closed_at) is not None and
+                       x.closed_at > past_date and
+                       x.pull_request is None and
+                       x.milestone is None and
+                       item_has_no_label_intersection(x, config.closed_labels)]
+    print('issues: ', items_to_notify)
+    if bool(slack_access_token):
+        for i in items_to_notify:
+            (html_url, closed_by_login, closed_by_name) = i
+            slack_id_to_notify = 'U04PX1BUA' if closed_by_login not in config.github_slack_map else config.github_slack_map[closed_by_login]
+            if bool(slack_id_to_notify):
+                slack.notify_user(slack_access_token, slack_id_to_notify,
+                                  messages.missing_issue_milestone(closed_by_login, closed_by_name, html_url))
+    return items_to_notify
 
 
 def fix_milestone_pr(g, pull, pr_repo_stub):
@@ -182,7 +189,7 @@ def fix_missing_qa_flags(slack_access_token, github_access_token, repo_stub):
     if bool(slack_access_token):
         for i in items_to_notify:
             (html_url, closed_by_login, closed_by_name) = i
-            slack_id_to_notify = config.github_slack_map[closed_by_login]
+            slack_id_to_notify = 'U04PX1BUA' if closed_by_login not in config.github_slack_map else config.github_slack_map[closed_by_login]
             if bool(slack_id_to_notify):
                 slack.notify_user(slack_access_token, slack_id_to_notify,
                                   messages.missing_qa_flags(closed_by_login, closed_by_name, html_url))
@@ -199,7 +206,7 @@ def fix_missing_release_note_flags(slack_access_token, github_access_token, repo
     if bool(slack_access_token):
         for i in items_to_notify:
             (html_url, closed_by_login, closed_by_name) = i
-            slack_id_to_notify = config.github_slack_map[closed_by_login]
+            slack_id_to_notify = 'U04PX1BUA' if closed_by_login not in config.github_slack_map else config.github_slack_map[closed_by_login]
             if bool(slack_id_to_notify):
                 slack.notify_user(slack_access_token, slack_id_to_notify,
                                   messages.missing_release_note_flags(closed_by_login, closed_by_name, html_url))

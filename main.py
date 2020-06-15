@@ -27,7 +27,7 @@ def main():
     elif args.action == 'pr-milestone':
         util.recent_prs_with_no_milestones(slack_access_token, github_access_token, "brave/brave-core")
     elif args.action == 'issue-milestone':
-        util.recent_issues_with_no_milestones(github_access_token, "brave/brave-browser")
+        util.recent_issues_with_no_milestones(slack_access_token, github_access_token, "brave/brave-browser")
     elif args.action == 'fix-milestone-prs':
         util.fix_milestone_prs(github_access_token, "brave/brave-core")
     elif args.action == 'fix-missing-qa-flags':
