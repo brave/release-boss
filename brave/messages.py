@@ -4,23 +4,39 @@ def format_name(closed_by_login, closed_by_name):
     return closed_by_login
 
 
-def missing_qa_flags(closed_by_login, closed_by_name, html_url):
+def missing_qa_and_rel_note_labels(closed_by_login, closed_by_name, html_url):
     return (r'''
-Github user %s closed issue %s without the needed QA flags.
+Github user %s closed issue %s without the needed QA and release note labels.
 
 Please specify either `QA/Yes` or `QA/No`.
 If you specify `QA/Yes`, then please also specify a test plan.
+
+Please also specify either `release-notes/include` or `release-notes/exclude`.
+For more information see https://github.com/brave/brave-browser/wiki/Missing-release-note-labels and
+https://github.com/brave/brave-browser/wiki/Missing-QA-labels
 
 Thank you!
     ''' % (format_name(closed_by_login, closed_by_name), html_url)).strip()
 
 
-def missing_release_note_flags(closed_by_login, closed_by_name, html_url):
+def missing_qa_labels(closed_by_login, closed_by_name, html_url):
     return (r'''
-Github user %s closed issue %s without the needed release note flags.
+Github user %s closed issue %s without the needed QA labels.
+
+Please specify either `QA/Yes` or `QA/No`.
+If you specify `QA/Yes`, then please also specify a test plan.
+For more information see https://github.com/brave/brave-browser/wiki/Missing-QA-labels
+
+Thank you!
+    ''' % (format_name(closed_by_login, closed_by_name), html_url)).strip()
+
+
+def missing_release_note_labels(closed_by_login, closed_by_name, html_url):
+    return (r'''
+Github user %s closed issue %s without the needed release note labels.
 
 Please specify either `release-notes/include` or `release-notes/exclude`.
-For more information see https://github.com/brave/brave-browser/wiki/Release-notes
+For more information see https://github.com/brave/brave-browser/wiki/Missing-release-note-labels
 
 Thank you!
     ''' % (format_name(closed_by_login, closed_by_name), html_url)).strip()

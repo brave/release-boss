@@ -10,8 +10,7 @@ def main():
         pr-milestone: Output data for the PRs that are missing milestones
         issue-milestone: Output data for the issues that are missing milestones
         fix-milestone-prs: Output data for issues that have no milestone, but associated PR does
-        fix-missing-qa-flags: Outputs data for issues that are missing QA flags
-        fix-missing-release-note-flags: Outputs data for issues that are missing release note flags''')
+        fix-missing-issue-labels: Sends at most 1 message per issue that needs any combination of labels''')
     args = parser.parse_args()
 
     assert "GITHUB_ACCESS_TOKEN" in os.environ, "Access token must be specified with GITHUB_ACCESS_TOKEN"
@@ -30,10 +29,8 @@ def main():
         util.recent_issues_with_no_milestones(slack_access_token, github_access_token, "brave/brave-browser")
     elif args.action == 'fix-milestone-prs':
         util.fix_milestone_prs(github_access_token, "brave/brave-core")
-    elif args.action == 'fix-missing-qa-flags':
-        util.fix_missing_qa_flags(slack_access_token, github_access_token, "brave/brave-browser")
-    elif args.action == 'fix-missing-release-note-flags':
-        util.fix_missing_release_note_flags(slack_access_token, github_access_token, "brave/brave-browser")
+    elif args.action == 'fix-missing-issue-labels':
+        util.fix_missing_issue_labels(slack_access_token, github_access_token, "brave/brave-browser", '1.12.x')
     else:
         print('Not a valid command: ', args.action)
 
