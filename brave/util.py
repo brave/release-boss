@@ -83,7 +83,10 @@ def recent_prs_with_no_milestones(slack_access_token, github_access_token, repo_
                        x.base.ref == 'master' and
                        x.title != 'Branch migration - master branch']
     print('pulls: ', items_to_notify)
-    notify_user_about_issue(slack_access_token, messages.missing_pr_milestone)
+    for issue in items_to_notify:
+        (html_url, closed_by_login, closed_by_name) = issue
+        notify_user_about_issue(slack_access_token, html_url, closed_by_login,
+                                closed_by_name, messages.missing_pr_milestone)
     return items_to_notify
 
 
@@ -101,7 +104,10 @@ def recent_issues_with_no_milestones(slack_access_token, github_access_token, re
                        x.milestone is None and
                        item_has_no_label_intersection(x.labels, config.closed_labels)]
     print('issues: ', items_to_notify)
-    notify_user_about_issue(slack_access_token, messages.missing_issue_milestone)
+    for issue in items_to_notify:
+        (html_url, closed_by_login, closed_by_name) = issue
+        notify_user_about_issue(slack_access_token, html_url, closed_by_login,
+                                closed_by_name, messages.missing_issue_milestone)
     return items_to_notify
 
 
