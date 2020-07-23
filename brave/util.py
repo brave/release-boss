@@ -182,24 +182,26 @@ def notify_user_about_issue(slack_access_token, html_url,
                           message_fn(closed_by_login, closed_by_name, html_url))
 
 
-def fix_missing_issue_labels(slack_access_token, github_access_token, repo_stub, milestone_version):
+def fix_missing_issue_labels(slack_access_token, github_access_token, repo_stub):
     (g, repo) = get_github_repo(github_access_token, repo_stub)
-    milestone = repo.get_milestone(config.version_to_brave_browser_milestone_ids[milestone_version])
-    issues = repo.get_issues(state='closed', milestone=milestone)
-    milestone_issues = [(x.html_url, x.closed_by.login, x.closed_by.name, x.labels) for x in issues if
-                        x.pull_request is None]
-    for issue in milestone_issues:
-        (html_url, closed_by_login, closed_by_name, labels) = issue
-        if item_has_no_label_intersection(labels, config.qa_labels) and (
-                item_has_no_label_intersection(labels, config.release_note_labels)):
-            notify_user_about_issue(slack_access_token, html_url, closed_by_login,
-                                    closed_by_name, messages.missing_qa_and_rel_note_labels)
-            print('missing QA and release note labels:', issue)
-        elif item_has_no_label_intersection(labels, config.qa_labels):
-            notify_user_about_issue(slack_access_token, html_url, closed_by_login,
-                                    closed_by_name, messages.missing_qa_labels)
-            print('missing QA labels:', issue)
-        elif item_has_no_label_intersection(labels, config.release_note_labels):
-            print('missing release note labels:', issue)
-            notify_user_about_issue(slack_access_token, html_url, closed_by_login,
-                                    closed_by_name, messages.missing_release_note_labels)
+    milestones = repo.get_milestones()
+    for milestone in milestones:
+        print('Processing milestone id %s - %s' % (milestone.number, milestone.title))
+        issues = repo.get_issues(state='closed', milestone=milestone)
+        milestone_issues = [(x.html_url, x.closed_by.login, x.closed_by.name, x.labels) for x in issues if
+                            x.pull_request is None]
+        for issue in milestone_issues:
+            (html_url, closed_by_login, closed_by_name, labels) = issue
+            if item_has_no_label_intersection(labels, config.qa_labels) and (
+                    item_has_no_label_intersection(labels, config.release_note_labels)):
+                notify_user_about_issue(slack_access_token, html_url, closed_by_login,
+                                        closed_by_name, messages.missing_qa_and_rel_note_labels)
+                print('missing QA and release note labels:', issue)
+            elif item_has_no_label_intersection(labels, config.qa_labels):
+                notify_user_about_issue(slack_access_token, html_url, closed_by_login,
+                                        closed_by_name, messages.missing_qa_labels)
+                print('missing QA labels:', issue)
+            elif item_has_no_label_intersection(labels, config.release_note_labels):
+                print('missing release note labels:', issue)
+                notify_user_about_issue(slack_access_token, html_url, closed_by_login,
+                                        closed_by_name, messages.missing_release_note_labels)

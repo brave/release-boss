@@ -16,9 +16,10 @@ def main():
     assert 'GITHUB_ACCESS_TOKEN' in os.environ, 'Access token must be specified with GITHUB_ACCESS_TOKEN'
 
     github_access_token = os.environ['GITHUB_ACCESS_TOKEN']
-    slack_access_token = os.environ['SLACK_ACCESS_TOKEN'] if 'SLACK_ACCESS_TOKEN' in os.environ else ''
+    slack_notify = True if 'SLACK_NOTIFY' in os.environ and os.environ['SLACK_NOTIFY'] == 'yes' else False
+    slack_access_token = os.environ['SLACK_ACCESS_TOKEN'] if 'SLACK_ACCESS_TOKEN' in os.environ and slack_notify else ''
 
-    if not slack_access_token:
+    if not slack_access_token and slack_notify:
         print('Warning: SLACK_ACCESS_TOKEN not specified, so no Slack notifications will be given')
 
     if args.action == 'pr-per-release':
@@ -30,7 +31,7 @@ def main():
     elif args.action == 'fix-milestone-prs':
         util.fix_milestone_prs(github_access_token, 'brave/brave-core')
     elif args.action == 'fix-missing-issue-labels':
-        util.fix_missing_issue_labels(slack_access_token, github_access_token, 'brave/brave-browser', '1.12.x')
+        util.fix_missing_issue_labels(slack_access_token, github_access_token, 'brave/brave-browser')
     else:
         print('Not a valid command: ', args.action)
 
