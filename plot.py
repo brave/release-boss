@@ -40,5 +40,5 @@ def main():
     plot_prs_per_release(versions, master, uplifts)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
