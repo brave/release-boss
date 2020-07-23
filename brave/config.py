@@ -72,6 +72,7 @@ github_slack_map = {
     'iccub': 'U815AK5JS',
     'iefremov': 'UE87NRK2A',
     'jamesmudgett': 'U2APFJL5P',
+    'jsecretan': 'U08PTRJT1',
     'jumde': 'U68S7NAFK',
     'keur': 'UK776151S',
     'kjozwiak': 'U3MRXKK1Q',
