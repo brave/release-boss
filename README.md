@@ -51,4 +51,4 @@ GITHUB_ACCESS_TOKEN=<token-here>
 
 ### Getting help
 
-`GITHUB_ACCESS_TOKEN=<token-here> pipenv run main --help`
+`pipenv run main --help`
