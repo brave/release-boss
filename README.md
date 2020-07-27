@@ -1,4 +1,6 @@
-# Github Brave Stats
+# Release Boss
+
+[![Build Status](https://travis-ci.org/brave-experiments/release-boss.svg?branch=master)](https://travis-ci.org/brave-experiments/release-boss)
 
 ## Setup
 
@@ -8,6 +10,13 @@
 
 `pipenv run pytest`
 
+## Environment
+
+```
+SLACK_ACCESS_TOKEN=<token-here>
+GITHUB_ACCESS_TOKEN=<token-here>
+```
+
 ## Commands
 
 ### Linting
@@ -16,19 +25,24 @@
 
 ### Find PR counts per release data
 
-`GITHUB_ACCESS_TOKEN=<token-here> pipenv run main --action=pr-milestone`
+`pipenv run main --action=pr-milestone`
 
-### Plot PR counts per release data
+### Checks for missing labels and notifies people of those issues on Slack
 
-`GITHUB_ACCESS_TOKEN=<token-here> pipenv run plot`
+`pipenv run main --action=fix-missing-issue-labels`
 
 ### Detect PRs that have a missing milestone
 
-`GITHUB_ACCESS_TOKEN=<token-here> pipenv run main --action=pr-milestone`
+`pipenv run main --action=pr-milestone`
 
 ### Detect issues that have a missing milestone
 
-`GITHUB_ACCESS_TOKEN=<token-here> pipenv run main --action=issues-milestone`
+`pipenv run main --action=issues-milestone`
+
+### Other not fully supported commands without tweaking code
+
+- Plot PR counts per release data: `pipenv run plot`
+
 
 ### Getting help
 
