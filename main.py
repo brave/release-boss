@@ -16,11 +16,11 @@ def main():
     assert 'GITHUB_ACCESS_TOKEN' in os.environ, 'Access token must be specified with GITHUB_ACCESS_TOKEN'
 
     github_access_token = os.environ['GITHUB_ACCESS_TOKEN']
-    slack_notify = True if 'SLACK_NOTIFY' in os.environ and os.environ['SLACK_NOTIFY'] == 'yes' else False
+    slack_notify = False if 'SLACK_NOTIFY' in os.environ and os.environ['SLACK_NOTIFY'] == 'no' else True
     slack_access_token = os.environ['SLACK_ACCESS_TOKEN'] if 'SLACK_ACCESS_TOKEN' in os.environ and slack_notify else ''
 
     if not slack_access_token and slack_notify:
-        print('Warning: SLACK_ACCESS_TOKEN not specified, so no Slack notifications will be given')
+        print('Warning: Slack token not specified, so no Slack notifications will be given')
 
     if args.action == 'pr-per-release':
         util.get_pull_requests(github_access_token, 'brave/brave-core')
