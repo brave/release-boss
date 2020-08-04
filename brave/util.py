@@ -192,6 +192,11 @@ def fix_missing_issue_labels(slack_access_token, github_access_token, repo_stub)
                             x.pull_request is None]
         for issue in milestone_issues:
             (html_url, closed_by_login, closed_by_name, labels) = issue
+
+            # If the issue has an invalid-like label, then don't consider it
+            if bool(config.closed_labels.intersection([l.name for l in labels])):
+                continue
+
             if item_has_no_label_intersection(labels, config.qa_labels) and (
                     item_has_no_label_intersection(labels, config.release_note_labels)):
                 notify_user_about_issue(slack_access_token, html_url, closed_by_login,
