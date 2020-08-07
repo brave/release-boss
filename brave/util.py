@@ -194,7 +194,7 @@ def fix_missing_issue_labels(slack_access_token, github_access_token, repo_stub)
             (html_url, closed_by_login, closed_by_name, labels) = issue
 
             # If the issue has an invalid-like label, then don't consider it
-            if bool(config.closed_labels.intersection([l.name for l in labels])):
+            if bool(config.closed_labels.intersection([label.name for label in labels])):
                 continue
 
             check_os = repo_stub != 'brave/brave-ios'
