@@ -36,6 +36,7 @@ closed_labels = set([
     'closed/fixed-by-component-update',
     'closed/works-for-me',
     'closed/no-milestone',
+    'closed/stale',
     'duplicate',
     'wontfix',
     'question',

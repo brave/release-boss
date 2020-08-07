@@ -28,10 +28,12 @@ def main():
         util.recent_prs_with_no_milestones(slack_access_token, github_access_token, 'brave/brave-core')
     elif args.action == 'issue-milestone':
         util.recent_issues_with_no_milestones(slack_access_token, github_access_token, 'brave/brave-browser')
+        util.recent_issues_with_no_milestones(slack_access_token, github_access_token, 'brave/brave-ios')
     elif args.action == 'fix-milestone-prs':
         util.fix_milestone_prs(github_access_token, 'brave/brave-core')
     elif args.action == 'fix-missing-issue-labels':
         util.fix_missing_issue_labels(slack_access_token, github_access_token, 'brave/brave-browser')
+        util.fix_missing_issue_labels(slack_access_token, github_access_token, 'brave/brave-ios')
     else:
         print('Not a valid command: ', args.action)
 
