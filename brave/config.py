@@ -70,6 +70,7 @@ github_slack_map = {
     'fmarier': 'UFAJB5HB8',
     'Fanboynz': 'UK7MJJX44',
     'gdregalo': 'U3MLL9K8C',
+    'GeetaSarvadnya': 'UAA2QRP17',
     'Genysys': 'ULC9D16TH',
     'gpestana': 'UK1C3AZMJ',
     'Gyuyoung': 'U0170E17UQL',
