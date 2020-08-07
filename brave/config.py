@@ -84,7 +84,7 @@ github_slack_map = {
     'LaurenWags': 'U5HCYJGUV',
     'linhkikuchi': 'UKNGLUHC6',
     'mariospr': 'U0170E1A3GC',
-    'mbacchi': 'U9T51NCDU',
+    'mbacchi': 'UBU5ZJ5NC',
     'mihaiplesa': 'UBU5ZJ5NC',
     'mkarolin': 'UC4RZJMSB',
     'moritzhaller': 'UM5GQEGBV',
