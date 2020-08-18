@@ -104,6 +104,7 @@ github_slack_map = {
     'petemill': 'U7CQA0TST',
     'pilgrim-brave': 'UD4490KT4',
     'rebron': 'UBYNQGBUG',
+    'ryanbr': 'UK7MJJX44',
     'ryanml': 'UA8GL3TB8',
     'samartnik': 'U6GV4FVD4',
     'SergeyZhukovsky': 'U0D73ULKD',
