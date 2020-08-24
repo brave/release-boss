@@ -37,11 +37,10 @@ closed_labels = set([
     'closed/works-for-me',
     'closed/no-milestone',
     'closed/stale',
+    'closed/wontfix',
     'duplicate',
-    'wontfix',
     'question',
-    'support',
-    'stale',
+    'support'
 ])
 
 qa_labels = set([
