@@ -38,7 +38,7 @@ closed_labels = set([
     'closed/no-milestone',
     'closed/stale',
     'closed/wontfix',
-    'duplicate',
+    'closed/duplicate',
     'question',
     'support'
 ])
