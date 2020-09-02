@@ -88,6 +88,7 @@ github_slack_map = {
     'jamesmudgett': 'U2APFJL5P',
     'jsecretan': 'U08PTRJT1',
     'jumde': 'U68S7NAFK',
+    'karenkliu': 'UB9B8D46Q',
     'keur': 'UK776151S',
     'kjozwiak': 'U3MRXKK1Q',
     'kylehickinson': 'UAR38EQTG',
