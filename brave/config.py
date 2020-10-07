@@ -71,6 +71,7 @@ github_slack_map = {
     'bridiver': 'U0D101U31',
     'Brandon-T': 'UK6RSD8ET',
     'bsclifton': 'U13AH4AJY',
+    'btlechowski': 'U8M8YQNRJ',
     'cezaraugusto': 'U13AH4AJY',
     'darkdh': 'U1M7ELUSV',
     'deeppandya': 'UK2T5MQRM',
