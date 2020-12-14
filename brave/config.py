@@ -102,6 +102,7 @@ github_slack_map = {
     'mariospr': 'U0170E1A3GC',
     'marshall': 'U01B4TW5HJ5',
     'mbacchi': 'UBU5ZJ5NC',
+    'mherrmann': 'U01124T2AHG',
     'mihaiplesa': 'UBU5ZJ5NC',
     'mkarolin': 'UC4RZJMSB',
     'moritzhaller': 'UM5GQEGBV',
