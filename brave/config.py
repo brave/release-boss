@@ -39,6 +39,7 @@ closed_labels = set([
     'closed/stale',
     'closed/wontfix',
     'closed/duplicate',
+    'closed/by-author',
     'question',
     'support'
 ])
