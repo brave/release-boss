@@ -102,6 +102,7 @@ def recent_issues_with_no_milestones(slack_access_token, github_access_token, re
                        x.closed_at > past_date and
                        x.pull_request is None and
                        x.milestone is None and
+                       x.closed_by is not None and
                        item_has_no_label_intersection(x.labels, config.closed_labels)]
     print('issues: ', items_to_notify)
     for issue in items_to_notify:
@@ -189,7 +190,7 @@ def fix_missing_issue_labels(slack_access_token, github_access_token, repo_stub)
         print('Processing %s milestone id %s - %s' % (repo_stub, milestone.number, milestone.title))
         issues = repo.get_issues(state='closed', milestone=milestone)
         milestone_issues = [(x.html_url, x.closed_by.login, x.closed_by.name, x.labels) for x in issues if
-                            x.pull_request is None]
+                            x.pull_request is None and x.closed_by is not None]
         for issue in milestone_issues:
             (html_url, closed_by_login, closed_by_name, labels) = issue
 
