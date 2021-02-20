@@ -6,8 +6,7 @@ version_to_brave_core_milestone_ids = {
     '1.5.x': 48,
     '1.6.x': 0,  # Was never released, merged to 1.7.x
     '1.7.x': 55,
-    '1.8.x': 58,
-    '1.9.x': 63,
+    '1.8.x': 58, '1.9.x': 63,
     '1.10.x': 66,
     '1.11.x': 72,
     '1.12.x': 74,
@@ -110,6 +109,7 @@ github_slack_map = {
     'moritzhaller': 'UM5GQEGBV',
     'mrobinson': 'U0170E1AXRS',
     'NejcZdovc': 'U3MLL9K8C',
+    'orspetol': 'U01GPJW3QKE',
     'pes10k': 'U5H3AC7LL',
     'petemill': 'U7CQA0TST',
     'pilgrim-brave': 'UD4490KT4',
