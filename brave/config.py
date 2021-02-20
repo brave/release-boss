@@ -118,7 +118,7 @@ github_slack_map = {
     'samartnik': 'U6GV4FVD4',
     'SergeyZhukovsky': 'U0D73ULKD',
     'simonhong': 'U9V31L3L0',
-    'spylogsster', 'U01LH63CLTD',
+    'spylogsster': 'U01LH63CLTD',
     'srirambv': 'U1U85R2ES',
     'tomlowenthal': 'U0B9C844X',
     'tmancey': 'UB9PF4X5K',
