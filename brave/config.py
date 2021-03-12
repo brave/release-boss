@@ -125,6 +125,7 @@ github_slack_map = {
     'stephendonner': 'U01JEJCV4N7',
     'tomlowenthal': 'U0B9C844X',
     'tmancey': 'UB9PF4X5K',
+    'wchen342': 'U01PRHY091A',
     'wknapik': 'U01PAAE67FZ',
     'yachtcaptain23': 'UAFGJQ602',
     'yrliou': 'U88QJKZBP',
