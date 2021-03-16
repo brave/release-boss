@@ -63,7 +63,7 @@ os_labels = set([
 ])
 
 github_slack_map = {
-    'AlanBreck ':'UTS3SMFB2',
+    'AlanBreck ': 'UTS3SMFB2',
     'AlexeyBarabash': 'U70RB43BP',
     'AndriusA': 'UC1CMB9D5',
     'antonok-edm': 'UL1L3CH61',
