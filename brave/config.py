@@ -123,6 +123,7 @@ github_slack_map = {
     'ryanml': 'U04PX1BUA',
     'samartnik': 'U6GV4FVD4',
     'SergeyZhukovsky': 'U0D73ULKD',
+    'ShivanKaul': 'U02031KK8SY',
     'simonhong': 'U9V31L3L0',
     'soner-yuksel': 'U01DVT6HXBR',
     'spylogsster': 'U01LH63CLTD',
