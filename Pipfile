@@ -10,11 +10,11 @@ pygithub = "*"
 matplotlib = "*"
 numpy = "*"
 slackclient = "*"
-pytest = "*"
+# pytest = "*"
 pycodestyle = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"
 
 [scripts]
 main = "python3 main.py"
