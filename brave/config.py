@@ -126,6 +126,8 @@ github_slack_map = {
     'ShivanKaul': 'U02031KK8SY',
     'simonhong': 'U9V31L3L0',
     'soner-yuksel': 'U01DVT6HXBR',
+    # taher
+    'nullhook': 'U026CDKRQ83',
     'spylogsster': 'U01LH63CLTD',
     'srirambv': 'U1U85R2ES',
     'stephendonner': 'U01JEJCV4N7',
