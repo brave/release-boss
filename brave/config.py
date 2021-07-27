@@ -90,6 +90,7 @@ github_slack_map = {
     'gpestana': 'UK1C3AZMJ',
     'Gyuyoung': 'U0170E17UQL',
     'hollons': 'U7WJA137Y',
+    'iambrianfung': 'U01M7GYJFFF',
     'iccub': 'U815AK5JS',
     'iefremov': 'UE87NRK2A',
     'jamesmudgett': 'U2APFJL5P',
