@@ -69,6 +69,7 @@ github_slack_map = {
     'AndriusA': 'UC1CMB9D5',
     'antonok-edm': 'UL1L3CH61',
     'anthonypkeane': 'UCLMABWMS',
+    'aseren': 'U026QSEPSHF',
     'bbondy': 'U04PX1BUA',
     'bridiver': 'U0D101U31',
     'Brandon-T': 'UK6RSD8ET',
