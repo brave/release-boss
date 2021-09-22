@@ -114,6 +114,7 @@ github_slack_map = {
     'mkarolin': 'UC4RZJMSB',
     'moritzhaller': 'UM5GQEGBV',
     'mrobinson': 'U0170E1AXRS',
+    'Mikhail': 'U02DG0ATML3',
     'NejcZdovc': 'U3MLL9K8C',
     'Miyayes': 'UB5QY7G93',
     'onyb': 'U022238N01W',
