@@ -133,6 +133,7 @@ github_slack_map = {
     'soner-yuksel': 'U01DVT6HXBR',
     # taher
     'nullhook': 'U026CDKRQ83',
+    'rillian': 'U02DMCPEGLA',
     'spylogsster': 'U01LH63CLTD',
     'srirambv': 'U1U85R2ES',
     'stephendonner': 'U01JEJCV4N7',
