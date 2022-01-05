@@ -125,6 +125,7 @@ github_slack_map = {
     'nuo-xu': 'U02GKAHTYGK',
     'onyb': 'U022238N01W',
     'orspetol': 'U01GPJW3QKE',
+    'pavneet-sing': 'U02Q0MFDNNB',
     'pes10k': 'U5H3AC7LL',
     'petemill': 'U7CQA0TST',
     'pilgrim-brave': 'UD4490KT4',
