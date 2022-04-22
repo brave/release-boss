@@ -140,6 +140,7 @@ github_slack_map = {
     'samartnik': 'U6GV4FVD4',
     'SergeyZhukovsky': 'U0D73ULKD',
     'ShivanKaul': 'U02031KK8SY',
+    'StephenHeaps': 'U035VT5977U',
     'simonhong': 'U9V31L3L0',
     'soner-yuksel': 'U01DVT6HXBR',
     # taher
