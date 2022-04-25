@@ -109,7 +109,7 @@ def missing_pr_milestone(closed_by_login, closed_by_name, html_url):
     return (r'''
 Github user %s closed pull request %s without specifying a milestone.
 
-Please update the milestone to match the version it landed in.
+Please update the milestone to match the version it landed in, or add one of the `closed/` labels if no milestone applies.
 For more information see https://github.com/brave/brave-browser/wiki/Pull-requests-with-missing-milestones
 
 Thank you!
@@ -120,7 +120,7 @@ def missing_issue_milestone(closed_by_login, closed_by_name, html_url):
     return (r'''
 Github user %s closed issue %s without specifying a milestone.
 
-Please update the milestone to match the version it landed in.
+Please update the milestone to match the version it landed in, or add one of the `closed/` labels if no milestone applies.
 For more information see https://github.com/brave/brave-browser/wiki/Issue-with-missing-milestones
 
 Thank you!
