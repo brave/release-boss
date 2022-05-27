@@ -158,6 +158,7 @@ github_slack_map = {
     'tapanmodh': 'U02QX4CFA2K',
     'tomlowenthal': 'U0B9C844X',
     'tmancey': 'UB9PF4X5K',
+    'Uni-verse': 'U02T6MGGUGM',
     'v-kat': 'U0317QSR94H',
     'wchen342': 'U01PRHY091A',
     'wknapik': 'U01PAAE67FZ',
