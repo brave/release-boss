@@ -154,6 +154,7 @@ github_slack_map = {
     'szilardszaloki': 'U022SK1KS8J',
     'supermassive': 'U036V67RJG3',
     'thypon': 'U02GP6QKR9P',
+    'timchilds': 'U030V903WR1',
     'remusao': 'U01NG0QUUH3',
     'tapanmodh': 'U02QX4CFA2K',
     'tomlowenthal': 'U0B9C844X',
