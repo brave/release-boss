@@ -11,7 +11,7 @@ def rate_limit_for_value(g, val=None):
     # print('Rate limiting info - total:', total, 'avail: ', avail)
 
     reset_time = datetime.datetime.fromtimestamp(g.rate_limiting_resettime)
-    delay_seconds = (reset_time - datetime.datetime.now()).total_seconds()
+    delay_seconds = max(0, (reset_time - datetime.datetime.now()).total_seconds())
 
     if avail < 50:
         print('Less than 50 rate limited requests left, delaying for', delay_seconds, 'seconds...')
