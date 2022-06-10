@@ -1,6 +1,6 @@
 # Release Boss
 
-[![Build Status](https://travis-ci.org/brave-experiments/release-boss.svg?branch=master)](https://travis-ci.org/brave-experiments/release-boss)
+![Build Status](https://github.com/brave/adblock-rust/actions/workflows/ci.yml/badge.svg)
 
 Feeling like you need another boss? We've got you covered. 
 Release boss is your all in one automated boss. It will nag you for triage things you should have done but didn't do.
