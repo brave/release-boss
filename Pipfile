@@ -4,15 +4,15 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+pycodestyle = "*"
+pytest = "*"
 
 [packages]
-pygithub = "*"
-typing_extensions="*"
 matplotlib = "*"
 numpy = "*"
+pygithub = "*"
 slackclient = "*"
-# pytest = "*"
-pycodestyle = "*"
+typing_extensions="*"
 
 [requires]
 python_version = "3.8"
