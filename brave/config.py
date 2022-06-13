@@ -110,6 +110,7 @@ github_slack_map = {
     'karenkliu': 'UB9B8D46Q',
     'kdenhartog': 'U034SEGDUJ3',
     'keur': 'UK776151S',
+    'kim0': 'U03EH3082HK',
     'kjozwiak': 'U3MRXKK1Q',
     'kylehickinson': 'UAR38EQTG',
     'LaurenWags': 'U5HCYJGUV',
