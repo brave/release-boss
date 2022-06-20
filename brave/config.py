@@ -80,6 +80,7 @@ github_slack_map = {
     'bsclifton': 'U13AH4AJY',
     'btlechowski': 'U8M8YQNRJ',
     'cezaraugusto': 'U13AH4AJY',
+    'cypt4': 'U03JF90SXU0',
     'darkdh': 'U1M7ELUSV',
     'deeppandya': 'UK2T5MQRM',
     'diracdeltas': 'U0B9C844X',
