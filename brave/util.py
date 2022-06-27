@@ -68,50 +68,6 @@ def get_pull_requests(github_access_token, repo_stub):
     return (master, uplifts)
 
 
-def recent_prs_with_no_milestones(slack_access_token, github_access_token, repo_stub):
-    (g, repo) = get_github_repo(github_access_token, repo_stub)
-
-    today = datetime.datetime.now()
-    past_date = today - datetime.timedelta(days=120)
-
-    pulls = repo.get_pulls('closed')
-    items_to_notify = [(x.html_url, x.user.login, x.user.name) for x in pulls if
-                       rate_limit_for_value(g, x.merged_at) is not None and
-                       x.merged_at > past_date and
-                       x.milestone is None and
-                       # Ignore PRs that were merged into other PRs
-                       x.base.ref == 'master' and
-                       x.title != 'Branch migration - master branch']
-    print('pulls: ', items_to_notify)
-    for issue in items_to_notify:
-        (html_url, closed_by_login, closed_by_name) = issue
-        notify_user_about_issue(slack_access_token, html_url, closed_by_login,
-                                closed_by_name, messages.missing_pr_milestone)
-    return items_to_notify
-
-
-def recent_issues_with_no_milestones(slack_access_token, github_access_token, repo_stub):
-    (g, repo) = get_github_repo(github_access_token, repo_stub)
-
-    today = datetime.datetime.now()
-    past_date = today - datetime.timedelta(days=30)
-
-    issues = repo.get_issues(state='closed')
-    items_to_notify = [(x.html_url, x.closed_by.login, x.closed_by.name) for x in issues if
-                       rate_limit_for_value(g, x.closed_at) is not None and
-                       x.closed_at > past_date and
-                       x.pull_request is None and
-                       x.milestone is None and
-                       x.closed_by is not None and
-                       item_has_no_label_intersection(x.labels, config.closed_labels)]
-    print('issues: ', items_to_notify)
-    for issue in items_to_notify:
-        (html_url, closed_by_login, closed_by_name) = issue
-        notify_user_about_issue(slack_access_token, html_url, closed_by_login,
-                                closed_by_name, messages.missing_issue_milestone)
-    return items_to_notify
-
-
 def fix_milestone_pr(g, pull, pr_repo_stub):
     match = parsing.get_closed_issue(pull.body, pr_repo_stub)
     if not match:
