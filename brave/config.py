@@ -153,6 +153,7 @@ github_slack_map = {
     'lukemulks': 'U13GWEVHC',
     'nullhook': 'U026CDKRQ83',
     'rillian': 'U02DMCPEGLA',
+    'sangwoo108': 'U03HUPSR9H8',
     'spylogsster': 'U01LH63CLTD',
     'srirambv': 'U1U85R2ES',
     'stephendonner': 'U01JEJCV4N7',
