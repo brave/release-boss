@@ -13,8 +13,7 @@ version_to_brave_core_milestone_ids = {
     '1.13.x': 83,
 }
 
-version_to_brave_browser_milestone_ids = {
-    '1.1.x': 50,
+version_to_brave_browser_milestone_ids = { '1.1.x': 50,
     '1.2.x': 57,
     '1.3.x': 62,
     '1.4.x': 65,
@@ -80,6 +79,7 @@ github_slack_map = {
     'Brave-Matt': 'UB9GJLKDY',
     'bsclifton': 'U13AH4AJY',
     'btlechowski': 'U8M8YQNRJ',
+    'cdesouza-chromium': 'U038X9ZBBUZ',
     'cezaraugusto': 'U13AH4AJY',
     'cypt4': 'U03JF90SXU0',
     'darkdh': 'U1M7ELUSV',
