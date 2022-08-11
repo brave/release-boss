@@ -1,3 +1,7 @@
+import json
+import os
+
+
 version_to_brave_core_milestone_ids = {
     '1.1.x': 34,
     '1.2.x': 39,
@@ -174,6 +178,17 @@ github_slack_map = {
     'zenparsing': 'UU7NY6Q9L',
 }
 
+if (os.getenv('GITHUB_SLACK_MAP_FILE', '')):
+    try:
+        filename = os.getenv('GITHUB_SLACK_MAP_FILE')
+        with open(filename, "r") as fh:
+            dynamic_github_slack_mapping = json.load(fh)
+        if dynamic_github_slack_mapping:
+            github_slack_map = {**dynamic_github_slack_mapping, **github_slack_map}
+    except FileNotFoundError:
+        print('Warning: GITHUB_SLACK_MAP_FILE is set, but thie file could not be found!')
+    except json.JSONDecodeError:
+        print('Warning: Error encountered while trying to decode mapping file as json!')
 
 branch_regex = r'^1\.[1-9]\d*\.x+$'
 

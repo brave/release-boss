@@ -5,7 +5,7 @@ from slack.errors import SlackApiError
 def notify_channel_internal(api_key, channel, message):
     client = WebClient(token=api_key)
     try:
-        response = client.chat_postMessage(
+        _ = client.chat_postMessage(
             channel=channel,
             text=message)
         return True
@@ -18,10 +18,7 @@ def notify_channel_internal(api_key, channel, message):
 def notify_user_internal(api_key, user_id, message):
     client = WebClient(token=api_key)
     try:
-        response = client.conversations_open(users=[user_id])
-        response = client.chat_postMessage(
-            channel=response['channel']['id'],
-            text=message)
+        _ = client.chat_postMessage(channel=user_id, text=message)
         return True
     except SlackApiError as e:
         # You will get a SlackApiError if "ok" is False
