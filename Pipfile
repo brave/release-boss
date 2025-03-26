@@ -15,7 +15,7 @@ slackclient = "*"
 typing_extensions="*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.13"
 
 [scripts]
 main = "python3 main.py"
