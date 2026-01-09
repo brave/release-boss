@@ -57,6 +57,8 @@ release_note_labels = set([
     'release-notes/exclude',
 ])
 
+os_label_prefix = 'OS/'
+
 github_slack_map = {
     'AlanBreck ': 'UTS3SMFB2',
     'AlexeyBarabash': 'U70RB43BP',
