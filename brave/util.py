@@ -26,6 +26,10 @@ def item_has_no_label_intersection(item_labels, labels):
     return not bool(labels.intersection([y.name for y in item_labels]))
 
 
+def item_has_no_label_with_prefix(item_labels, prefix):
+    return not any(label.name.startswith(prefix) for label in item_labels)
+
+
 def get_github_repo(github_access_token, repo_stub):
     [org_name, repo_name] = repo_stub.split('/')
     g = Github(github_access_token)
@@ -157,18 +161,18 @@ def fix_missing_issue_labels(slack_access_token, github_access_token, repo_stub)
             check_os = repo_stub != 'brave/brave-ios'
             check_rel_notes = repo_stub != 'brave/brave-ios'
 
-            if check_rel_notes and check_os and item_has_no_label_intersection(labels, config.os_labels) and (
+            if check_rel_notes and check_os and item_has_no_label_with_prefix(labels, 'OS/') and (
                     item_has_no_label_intersection(labels, config.qa_labels) and
                     item_has_no_label_intersection(labels, config.release_note_labels)):
                 notify_user_about_issue(slack_access_token, html_url, closed_by_login,
                                         closed_by_name, messages.missing_os_and_qa_and_rel_note_labels)
                 print('missing OS, QA and release note labels:', issue)
-            elif check_os and item_has_no_label_intersection(labels, config.os_labels) and (
+            elif check_os and item_has_no_label_with_prefix(labels, 'OS/') and (
                     item_has_no_label_intersection(labels, config.qa_labels)):
                 notify_user_about_issue(slack_access_token, html_url, closed_by_login,
                                         closed_by_name, messages.missing_os_and_qa_labels)
                 print('missing OS and QA labels:', issue)
-            elif check_rel_notes and check_os and item_has_no_label_intersection(labels, config.os_labels) and (
+            elif check_rel_notes and check_os and item_has_no_label_with_prefix(labels, 'OS/') and (
                     item_has_no_label_intersection(labels, config.release_note_labels)):
                 notify_user_about_issue(slack_access_token, html_url, closed_by_login,
                                         closed_by_name, messages.missing_os_and_rel_note_labels)
@@ -186,7 +190,7 @@ def fix_missing_issue_labels(slack_access_token, github_access_token, repo_stub)
                 print('missing release note labels:', issue)
                 notify_user_about_issue(slack_access_token, html_url, closed_by_login,
                                         closed_by_name, messages.missing_release_note_labels)
-            elif check_os and item_has_no_label_intersection(labels, config.os_labels):
+            elif check_os and item_has_no_label_with_prefix(labels, 'OS/'):
                 print('missing OS labels:', issue)
                 notify_user_about_issue(slack_access_token, html_url, closed_by_login,
                                         closed_by_name, messages.missing_os_labels)

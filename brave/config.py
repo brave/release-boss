@@ -57,15 +57,6 @@ release_note_labels = set([
     'release-notes/exclude',
 ])
 
-os_labels = set([
-    'OS/macOS',
-    'OS/Windows',
-    'OS/Linux',
-    'OS/Android',
-    'OS/Desktop',
-    'OS/iOS',
-])
-
 github_slack_map = {
     'AlanBreck ': 'UTS3SMFB2',
     'AlexeyBarabash': 'U70RB43BP',
