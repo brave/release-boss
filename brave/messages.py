@@ -8,7 +8,7 @@ def missing_os_and_qa_and_rel_note_labels(closed_by_login, closed_by_name, html_
     return (r'''
 Github user %s closed issue %s without the needed OS, QA, and release note labels.
 
-Please specify at least one of `OS/macOS`, `OS/Windows`, `OS/Linux`, `OS/Android`, `OS/Desktop` or `OS/iOS`.
+Please specify at least one label with the `OS/` prefix (e.g. `OS/Windows`, `OS/Android`, etc).
 For more information see https://github.com/brave/brave-browser/wiki/Missing-OS-labels
 
 Please also specify either `QA/Yes` or `QA/No`.
@@ -29,7 +29,7 @@ def missing_os_and_qa_labels(closed_by_login, closed_by_name, html_url):
     return (r'''
 Github user %s closed issue %s without the needed OS and QA labels.
 
-Please specify at least one of `OS/macOS`, `OS/Windows`, `OS/Linux`, `OS/Android`, `OS/Desktop`, or `OS/iOS`.
+Please specify at least one label with the `OS/` prefix (e.g. `OS/Windows`, `OS/Android`, etc).
 
 Please specify either `QA/Yes` or `QA/No`.
 If you specify `QA/Yes`, then please also specify a test plan.
@@ -45,7 +45,7 @@ def missing_os_and_rel_note_labels(closed_by_login, closed_by_name, html_url):
     return (r'''
 Github user %s closed issue %s without the needed OS and release note labels.
 
-Please specify at least one of `OS/macOS`, `OS/Windows`, `OS/Linux`, `OS/Android`, `OS/Desktop` or `OS/iOS`.
+Please specify at least one label with the `OS/` prefix (e.g. `OS/Windows`, `OS/Android`, etc).
 
 Please also specify either `release-notes/include` or `release-notes/exclude`.
 
@@ -98,7 +98,7 @@ def missing_os_labels(closed_by_login, closed_by_name, html_url):
     return (r'''
 Github user %s closed issue %s without the needed OS labels.
 
-Please specify at least one of `OS/macOS`, `OS/Windows`, `OS/Linux`, `OS/Android`, `OS/Desktop`, or `OS/iOS`.
+Please specify at least one label with the `OS/` prefix (e.g. `OS/Windows`, `OS/Android`, etc).
 For more information see https://github.com/brave/brave-browser/wiki/Missing-OS-labels
 
 Thank you!

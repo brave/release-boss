@@ -57,14 +57,7 @@ release_note_labels = set([
     'release-notes/exclude',
 ])
 
-os_labels = set([
-    'OS/macOS',
-    'OS/Windows',
-    'OS/Linux',
-    'OS/Android',
-    'OS/Desktop',
-    'OS/iOS',
-])
+os_label_prefix = 'OS/'
 
 github_slack_map = {
     'AlanBreck ': 'UTS3SMFB2',
