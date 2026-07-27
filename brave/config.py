@@ -147,6 +147,7 @@ github_slack_map = {
     'rillian': 'U02DMCPEGLA',
     'sangwoo108': 'U03HUPSR9H8',
     'srirambv': 'U1U85R2ES',
+    'Steeeephen': 'U08LX5R9U2E',
     'stephendonner': 'U01JEJCV4N7',
     'szilardszaloki': 'U022SK1KS8J',
     'supermassive': 'U036V67RJG3',
