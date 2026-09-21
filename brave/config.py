@@ -78,6 +78,7 @@ github_slack_map = {
     'cdesouza-chromium': 'U038X9ZBBUZ',
     'cypt4': 'U03JF90SXU0',
     'darkdh': 'U1M7ELUSV',
+    'DerrickRice': 'U0BND6L5S5N',
     'diracdeltas': 'U0B9C844X',
     'DJAndries': 'U030HSZQANL',
     'Douglashdaniel': 'U01Q1DJGB39',
