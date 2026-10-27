@@ -14,20 +14,20 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Install pipenv
-        run: pip install pipenv
-
-      - name: Setup Python
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      - name: Install uv
+        uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
         with:
-          python-version: "3.10"
-          cache: "pipenv"
+          version: "0.13.6"
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install
 
       - name: Install packages
-        run: pipenv install --dev
+        run: uv sync --locked
 
       - name: Lint
-        run: pipenv run lint
+        run: uv run pycodestyle -r .
 
       - name: Pytest
-        run: pipenv run pytest
+        run: uv run pytest

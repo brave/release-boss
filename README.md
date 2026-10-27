@@ -9,11 +9,13 @@ Release boss is your all in one automated boss. It will nag you for triage thing
 
 ## Setup
 
-`pipenv install`
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/), then:
+
+`uv sync`
 
 ## Running tests
 
-`pipenv run pytest`
+`uv run pytest`
 
 ## Environment
 
@@ -26,29 +28,29 @@ GITHUB_ACCESS_TOKEN=<token-here>
 
 ### Linting
 
-`pipenv run lint`
+`uv run pycodestyle -r .`
 
 ### Find PR counts per release data
 
-`pipenv run main --action=pr-milestone`
+`uv run python main.py --action=pr-milestone`
 
 ### Checks for missing labels and notifies people of those issues on Slack
 
-`pipenv run main --action=fix-missing-issue-labels`
+`uv run python main.py --action=fix-missing-issue-labels`
 
 ### Detect PRs that have a missing milestone
 
-`pipenv run main --action=pr-milestone`
+`uv run python main.py --action=pr-milestone`
 
 ### Detect issues that have a missing milestone
 
-`pipenv run main --action=issues-milestone`
+`uv run python main.py --action=issues-milestone`
 
 ### Other not fully supported commands without tweaking code
 
-- Plot PR counts per release data: `pipenv run plot`
+- Plot PR counts per release data: `uv run python plot.py`
 
 
 ### Getting help
 
-`pipenv run main --help`
+`uv run python main.py --help`

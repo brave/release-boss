@@ -1,0 +1,21 @@
+[project]
+name = "release-boss"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "matplotlib>=3.10.9",
+    "numpy>=2.2.6",
+    "pygithub>=2.10.0",
+    "slackclient>=2.9.4",
+    "typing-extensions>=4.16.0",
+]
+
+[dependency-groups]
+dev = [
+    "pycodestyle>=2.15.0",
+    "pytest>=9.1.1",
+]
+
+# Refuse versions published in the last 7 days.
+[tool.uv]
+exclude-newer = "7 days"
