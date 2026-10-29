@@ -15,7 +15,3 @@ dev = [
     "pycodestyle>=2.15.0",
     "pytest>=9.1.1",
 ]
-
-# Refuse versions published in the last 7 days.
-[tool.uv]
-exclude-newer = "7 days"
